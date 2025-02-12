@@ -1,0 +1,48 @@
+import java.util.ArrayList;
+
+public class Bank {
+    private double amount;
+    private ArrayList<Double> transactions; 
+
+    public Bank() {
+        this.amount = 0.0;
+        this.transactions = new ArrayList<>();
+    }
+
+    public void deposit(double depositAmount) {
+        if (depositAmount > 0) {
+            amount += depositAmount;
+            transactions.add(depositAmount);
+            System.out.println("Deposited: $" + depositAmount);
+        } else {
+            System.out.println("Deposit amount must be positive.");
+        }
+    }
+
+    public void withdraw(double withdrawAmount) {
+        if (withdrawAmount > 0 && withdrawAmount <= amount) {
+            amount -= withdrawAmount;
+            transactions.add(-withdrawAmount);
+            System.out.println("Withdrew: $" + withdrawAmount);
+        } else {
+            System.out.println("Invalid withdrawal amount or insufficient funds.");
+        }
+    }
+
+    public void listInteractions() {
+        System.out.println("Transaction history:");
+        for (double transaction : transactions) {
+            System.out.println(transaction);
+        }
+    }
+
+    public static void main(String[] args) {
+        Bank myBank = new Bank();
+        myBank.deposit(500);
+        myBank.withdraw(200);
+        myBank.deposit(300);
+        myBank.withdraw(100);
+        
+        myBank.listInteractions();
+    }
+}
