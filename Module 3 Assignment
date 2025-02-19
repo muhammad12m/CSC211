@@ -1,0 +1,91 @@
+public class Automobile {
+    int modelYear;
+    String brand;
+
+    public Automobile(int modelYear, String brand) {
+        this.modelYear = modelYear;
+        this.brand = brand;
+    }
+
+    public void honk() {
+        System.out.println(brand + " is honking!");
+    }
+
+    public void accelerate() {
+        System.out.println(brand + " is accelerating.");
+    }
+
+    public void stop() {
+        System.out.println(brand + " is stopping.");
+    }
+
+    public void reverse() {
+        System.out.println(brand + " is reversing.");
+    }
+
+    @Override
+    public String toString() {
+        return brand + " (" + modelYear + ")";
+    }
+
+    // Main method to test everything in one file
+    public static void main(String[] args) {
+        // Create cars
+        Automobile car = new Car(2015, "Toyota");
+        Automobile sportsCar = new SportsCar(2022, "Ferrari");
+        Automobile junkCar = new JunkCar(1999, "Old Chevy");
+
+        // Test each vehicle
+        Automobile[] vehicles = {car, sportsCar, junkCar};
+
+        for (Automobile vehicle : vehicles) {
+            System.out.println(vehicle);
+            vehicle.honk();
+            vehicle.accelerate();
+            vehicle.stop();
+            vehicle.reverse();
+            System.out.println();
+        }
+    }
+}
+
+class Car extends Automobile {
+    public Car(int modelYear, String brand) {
+        super(modelYear, brand);
+    }
+
+    @Override
+    public void honk() {
+        System.out.println(brand + " (Car) says Beep Beep!");
+    }
+}
+
+class SportsCar extends Automobile {
+    public SportsCar(int modelYear, String brand) {
+        super(modelYear, brand);
+    }
+
+    @Override
+    public void honk() {
+        System.out.println(brand + " (SportsCar) says Vrooom!");
+    }
+
+    public void turboBoost() {
+        System.out.println(brand + " is boosting!");
+    }
+}
+
+class JunkCar extends Automobile {
+    public JunkCar(int modelYear, String brand) {
+        super(modelYear, brand);
+    }
+
+    @Override
+    public void honk() {
+        System.out.println(brand + " (JunkCar) says *weak honk*...");
+    }
+
+    public void breakDown() {
+        System.out.println(brand + " broke down!");
+    }
+}
