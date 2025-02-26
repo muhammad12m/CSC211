@@ -1,0 +1,125 @@
+Access Modifiers Example
+Public Modifier
+
+Example: A public method in a class can be accessed from anywhere.
+Use Case: We use public when we want methods or variables to be accessible across different classes.
+java
+Copy
+Edit
+public class Example {
+    public int number = 10; // Accessible everywhere
+
+    public void display() {
+        System.out.println("Public method called!");
+    }
+}
+Private Modifier
+
+Example: A private field in a class is only accessible within that class.
+Use Case: We use private for data encapsulation, restricting direct access to variables.
+java
+Copy
+Edit
+public class Example {
+    private int secretNumber = 42; // Only accessible within this class
+
+    private void displaySecret() {
+        System.out.println("Private method called!");
+    }
+}
+Benefits of Inheritance: Employee & Analyst
+Inheritance allows code reuse and promotes a hierarchical structure.
+
+Example:
+Employee is a base class with attributes like name and salary.
+Analyst is a subclass that extends Employee and adds a unique property like dataExpertise.
+java
+Copy
+Edit
+// Parent class
+public class Employee {
+    protected String name;
+    protected double salary;
+
+    public Employee(String name, double salary) {
+        this.name = name;
+        this.salary = salary;
+    }
+
+    public void displayInfo() {
+        System.out.println("Name: " + name + ", Salary: $" + salary);
+    }
+}
+
+// Child class inheriting Employee
+public class Analyst extends Employee {
+    private String dataExpertise;
+
+    public Analyst(String name, double salary, String dataExpertise) {
+        super(name, salary); // Calls Employee constructor
+        this.dataExpertise = dataExpertise;
+    }
+
+    public void displayAnalystInfo() {
+        displayInfo(); // Inherited method
+        System.out.println("Expertise: " + dataExpertise);
+    }
+}
+Benefits:
+Code Reusability – Analyst does not need to redefine name and salary.
+Extensibility – Additional roles (e.g., Manager, Developer) can be created with minimal duplication.
+Shape Class & Subclasses (Circle, Rectangle)
+Parent Class (Shape)
+java
+Copy
+Edit
+// Parent class: Shape
+public class Shape {
+    protected int numSides;
+
+    public Shape(int numSides) {
+        this.numSides = numSides;
+    }
+
+    public int getNumSides() {
+        return numSides;
+    }
+
+    public void setNumSides(int numSides) {
+        this.numSides = numSides;
+    }
+}
+Child Classes (Circle & Rectangle)
+java
+Copy
+Edit
+// Circle subclass inheriting Shape
+public class Circle extends Shape {
+    private double radius;
+
+    public Circle(double radius) {
+        super(0); // Circle has 0 sides
+        this.radius = radius;
+    }
+}
+
+// Rectangle subclass inheriting Shape
+public class Rectangle extends Shape {
+    private double length, width;
+
+    public Rectangle(double length, double width) {
+        super(4); // Rectangle has 4 sides
+        this.length = length;
+        this.width = width;
+    }
+}
+Main Method Demonstration
+java
+Copy
+Edit
+public class Main {
+    public static void main(String[] args) {
+        Circle myCircle = new Circle(5.0);
+        System.out.println("Circle sides: " + myCircle.getNumSides()); // Output: 0
+    }
+}
