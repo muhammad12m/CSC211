@@ -1,0 +1,78 @@
+import java.awt.*;
+import java.awt.event.*;
+
+public class EmployeeInformationForm extends Frame {
+    // Declare components
+    Label nameLabel, idLabel, departmentLabel;
+    TextField nameField, idField, departmentField;
+    Button submitButton;
+
+    // Constructor to set up the UI
+    public EmployeeInformationForm() {
+        // Set the frame layout and title
+        setLayout(new FlowLayout());
+        setTitle("Employee Information Form");
+
+        // Initialize components
+        nameLabel = new Label("Name:");
+        idLabel = new Label("Employee ID:");
+        departmentLabel = new Label("Department:");
+
+        nameField = new TextField(20);
+        idField = new TextField(20);
+        departmentField = new TextField(20);
+
+        submitButton = new Button("Submit");
+
+        // Add components to the frame
+        add(nameLabel);
+        add(nameField);
+        add(idLabel);
+        add(idField);
+        add(departmentLabel);
+        add(departmentField);
+        add(submitButton);
+
+        // Action listener for the Submit button
+        submitButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Get the input values
+                String name = nameField.getText();
+                String employeeId = idField.getText();
+                String department = departmentField.getText();
+
+                // Display the entered details in a message dialog
+                if (name.isEmpty() || employeeId.isEmpty() || department.isEmpty()) {
+                    // Show an error if any field is empty
+                    showMessage("Please fill all the fields.");
+                } else {
+                    // Show the entered details
+                    String message = "Name: " + name + "\nEmployee ID: " + employeeId + "\nDepartment: " + department;
+                    showMessage(message);
+                }
+            }
+        });
+
+        // Set up the frame size and close operation
+        setSize(300, 200);
+        setVisible(true);
+
+        // Window close listener
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent we) {
+                System.exit(0);
+            }
+        });
+    }
+
+    // Method to show a message in a dialog
+    private void showMessage(String message) {
+        // Use a message dialog to display the message
+        JOptionPane.showMessageDialog(this, message, "Employee Details", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    // Main method to run the application
+    public static void main(String[] args) {
+        new EmployeeInformationForm();
+    }
+}
