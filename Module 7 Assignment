@@ -1,0 +1,98 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class UserRegistrationForm extends JFrame {
+
+    // Declare components
+    private JLabel nameLabel, emailLabel, passwordLabel, confirmPasswordLabel;
+    private JTextField nameField, emailField, passwordField, confirmPasswordField;
+    private JButton submitButton, clearButton;
+
+    public UserRegistrationForm() {
+        // Set up the JFrame
+        setTitle("User Registration Form");
+        setSize(300, 250);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setLayout(new GridLayout(5, 2, 10, 10)); // Use GridLayout to organize components
+
+        // Initialize components
+        nameLabel = new JLabel("Name:");
+        emailLabel = new JLabel("Email:");
+        passwordLabel = new JLabel("Password:");
+        confirmPasswordLabel = new JLabel("Confirm Password:");
+
+        nameField = new JTextField();
+        emailField = new JTextField();
+        passwordField = new JPasswordField();
+        confirmPasswordField = new JPasswordField();
+
+        submitButton = new JButton("Submit");
+        clearButton = new JButton("Clear");
+
+        // Add components to the frame
+        add(nameLabel);
+        add(nameField);
+        add(emailLabel);
+        add(emailField);
+        add(passwordLabel);
+        add(passwordField);
+        add(confirmPasswordLabel);
+        add(confirmPasswordField);
+        add(submitButton);
+        add(clearButton);
+
+        // Submit button action
+        submitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Get input values
+                String name = nameField.getText();
+                String email = emailField.getText();
+                String password = new String(passwordField.getPassword());
+                String confirmPassword = new String(confirmPasswordField.getPassword());
+
+                // Validate input
+                if (name.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+                    // Show error message if any field is empty
+                    JOptionPane.showMessageDialog(UserRegistrationForm.this,
+                            "Please fill in all fields.", "Error", JOptionPane.ERROR_MESSAGE);
+                } else if (!password.equals(confirmPassword)) {
+                    // Show error message if passwords don't match
+                    JOptionPane.showMessageDialog(UserRegistrationForm.this,
+                            "Passwords do not match.", "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    // Show success message with user info
+                    String message = String.format("Name: %s\nEmail: %s\nPassword: %s",
+                            name, email, password);
+                    JOptionPane.showMessageDialog(UserRegistrationForm.this,
+                            message, "Registration Successful", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+        });
+
+        // Clear button action
+        clearButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Clear all text fields
+                nameField.setText("");
+                emailField.setText("");
+                passwordField.setText("");
+                confirmPasswordField.setText("");
+            }
+        });
+    }
+
+    public static void main(String[] args) {
+        // Create and display the form
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new UserRegistrationForm().setVisible(true);
+            }
+        });
+    }
+}
