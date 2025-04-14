@@ -1,0 +1,51 @@
+python
+CopyEdit
+# Animal class (Base Class)
+class Animal:
+    def __init__(self, name):
+        self.name = name
+
+    def make_sound(self):
+        raise NotImplementedError("Subclass must implement this method.")
+
+# Dog class (Inherits from Animal)
+class Dog(Animal):
+    def make_sound(self):
+        return f"{self.name} says Woof!"
+
+# Cat class (Inherits from Animal)
+class Cat(Animal):
+    def make_sound(self):
+        return f"{self.name} says Meow!"
+
+# Environment class (Composition)
+class Environment:
+    def __init__(self):
+        self.animals = []
+
+    def add_animal(self, animal):
+        self.animals.append(animal)
+
+    def show_sounds(self):
+        for animal in self.animals:
+            print(animal.make_sound())
+
+# Main function
+def main():
+    # Create animal objects
+    dog = Dog("Buddy")
+    cat = Cat("Whiskers")
+
+    # Create environment
+    my_environment = Environment()
+
+    # Add animals to the environment
+    my_environment.add_animal(dog)
+    my_environment.add_animal(cat)
+
+    # Show the sounds the animals make in the environment (Polymorphism)
+    my_environment.show_sounds()
+
+# Running the main function
+if __name__ == "__main__":
+    main()
