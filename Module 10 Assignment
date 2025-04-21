@@ -1,0 +1,80 @@
+Code Example Using abstract Class
+An abstract class can have both abstract (without implementation) and concrete (with implementation) methods. It is used when you want to provide a common base class with some shared behavior and leave other behaviors to be implemented by subclasses.
+
+java
+Copy
+Edit
+abstract class Animal {
+    // Abstract method (no implementation)
+    public abstract void sound();
+
+    // Concrete method (with implementation)
+    public void sleep() {
+        System.out.println("The animal is sleeping.");
+    }
+}
+
+class Dog extends Animal {
+    // Providing implementation for the abstract method
+    public void sound() {
+        System.out.println("The dog barks.");
+    }
+}
+
+public class TestAbstract {
+    public static void main(String[] args) {
+        Animal myDog = new Dog();
+        myDog.sound();  // Calls the method from Dog class
+        myDog.sleep();  // Calls the method from Animal class
+    }
+}
+2. Code Example Using interface
+An interface is a contract that classes can implement. It only contains abstract methods (prior to Java 8) and constants. From Java 8 onward, it can also have default and static methods.
+
+java
+Copy
+Edit
+interface Animal {
+    // Abstract method (no implementation)
+    void sound();
+
+    // Default method (with implementation)
+    default void sleep() {
+        System.out.println("The animal is sleeping.");
+    }
+}
+
+class Dog implements Animal {
+    // Providing implementation for the abstract method
+    public void sound() {
+        System.out.println("The dog barks.");
+    }
+}
+
+public class TestInterface {
+    public static void main(String[] args) {
+        Animal myDog = new Dog();
+        myDog.sound();  // Calls the method from Dog class
+        myDog.sleep();  // Calls the default method from Animal interface
+    }
+}
+3. When to Choose abstract Class vs interface
+Use an abstract class when:
+
+You want to provide some common functionality with shared code across different subclasses.
+
+You have methods that should not be overridden (i.e., concrete methods).
+
+You need to maintain state (instance variables).
+
+You want to allow for a class hierarchy with some common implementation.
+
+Use an interface when:
+
+You want to define a contract that classes should follow without dictating how they implement it.
+
+You need to support multiple inheritance (a class can implement multiple interfaces).
+
+You don't need to provide any method implementations (before Java 8), just method signatures.
+
+You only care about defining the behavior and not the shared code.
