@@ -1,1 +1,50 @@
+def fibonacci_iterative(n):
+    if n <= 1:
+        return n
+    a, b = 0, 1
+    for _ in range(2, n + 1):
+        a, b = b, a + b
+    return b
+Recursive Version
+python
+Copy
+Edit
+def fibonacci_recursive(n):
+    if n <= 1:
+        return n
+    return fibonacci_recursive(n - 1) + fibonacci_recursive(n - 2)
+
+2. Decimal to Binary Conversion
+Iterative Version
+python
+Copy
+Edit
+def decimal_to_binary_iterative(n):
+    if n == 0:
+        return "0"
+    binary = ""
+    while n > 0:
+        binary = str(n % 2) + binary
+        n //= 2
+    return binary
+
+ Recursive Version
+python
+Copy
+Edit
+def decimal_to_binary_recursive(n):
+    if n == 0:
+        return "0"
+    if n == 1:
+        return "1"
+    return decimal_to_binary_recursive(n // 2) + str(n % 2)
+Example Usage:
+python
+Copy
+Edit
+print("Fibonacci (Iterative):", fibonacci_iterative(10))
+print("Fibonacci (Recursive):", fibonacci_recursive(10))
+
+print("Decimal to Binary (Iterative):", decimal_to_binary_iterative(10))
+print("Decimal to Binary (Recursive):", decimal_to_binary_recursive(10))
 
