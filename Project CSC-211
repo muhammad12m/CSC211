@@ -1,0 +1,164 @@
+public abstract class Product {
+    protected String name;
+    protected double price;
+
+    public Product(String name, double price) {
+        this.name = name;
+        this.price = price;
+    }
+
+    public double getPrice() { return price; }
+    public String getName() { return name; }
+
+    @Override
+    public String toString() {
+        return name + " - $" + price;
+    }
+}
+Electronics.java, Clothing.java, Grocery.java
+java
+Copy
+Edit
+public class Electronics extends Product {
+    public Electronics(String name, double price) {
+        super(name, price);
+    }
+}
+public class Clothing extends Product {
+    public Clothing(String name, double price) {
+        super(name, price);
+    }
+}
+public class Grocery extends Product {
+    public Grocery(String name, double price) {
+        super(name, price);
+    }
+}
+User.java, Customer.java, Admin.java
+java
+Copy
+Edit
+public abstract class User {
+    protected String username;
+
+    public User(String username) {
+        this.username = username;
+    }
+
+    public String getUsername() { return username; }
+}
+
+public class Customer extends User {
+    public Customer(String username) {
+        super(username);
+    }
+}
+
+public class Admin extends User {
+    public Admin(String username) {
+        super(username);
+    }
+}
+Order.java
+java
+Copy
+Edit
+import java.util.*;
+import java.util.function.Function;
+
+public class Order {
+    private Customer customer;
+    private List<Product> cart = new ArrayList<>();
+
+    public Order(Customer customer) {
+        this.customer = customer;
+    }
+
+    public void addProduct(Product p) {
+        cart.add(p);
+    }
+
+    public double calculateTotal(Function<List<Product>, Double> pricingFunction) {
+        return pricingFunction.apply(cart);
+    }
+
+    public List<Product> getProducts() { return cart; }
+
+    @Override
+    public String toString() {
+        return "Order by " + customer.getUsername() + " with " + cart.size() + " products.";
+    }
+}
+Main.java – Lambda Usage & Filters
+java
+Copy
+Edit
+import java.util.*;
+import java.util.stream.*;
+
+public class Main {
+    public static void main(String[] args) {
+        List<Product> products = Arrays.asList(
+            new Electronics("Phone", 699.99),
+            new Grocery("Apples", 3.49),
+            new Clothing("Jacket", 89.99),
+            new Grocery("Milk", 1.99)
+        );
+
+        Customer customer = new Customer("alice");
+        Order order = new Order(customer);
+        order.addProduct(products.get(0));
+        order.addProduct(products.get(3));
+
+        // Lambda to calculate total + tax + shipping
+        double total = order.calculateTotal(cart -> {
+            double subtotal = cart.stream().mapToDouble(Product::getPrice).sum();
+            double tax = subtotal * 0.07;
+            double shipping = cart.size() > 2 ? 0 : 5;
+            return subtotal + tax + shipping;
+        });
+
+        System.out.printf("Order total for %s: $%.2f\n", customer.getUsername(), total);
+
+        // Filter by category: only groceries
+        System.out.println("Groceries:");
+        products.stream()
+            .filter(p -> p instanceof Grocery)
+            .forEach(System.out::println);
+
+        // Sort products by price
+        System.out.println("\nSorted Products:");
+        products.stream()
+            .sorted(Comparator.comparing(Product::getPrice))
+            .forEach(System.out::println);
+    }
+}
+E-commerce Platform Prototype – Documentation
+Purpose
+This Java program demonstrates a basic prototype for an e-commerce platform, featuring product listings, user types, shopping cart management, and order processing. It uses object-oriented programming concepts, inheritance, and lambda expressions to model real-world e-commerce behavior in a simple yet extendable structure.
+
+Structure and Methods
+
+Product is an abstract base class, with subclasses Electronics, Clothing, and Grocery.
+
+User is also abstract, with subclasses Customer and Admin, simulating different roles.
+
+Order represents a shopping cart and includes a calculateTotal() method that accepts a lambda for pricing logic. This allows flexible strategies for computing tax, discounts, or shipping.
+
+Lambda expressions are used to:
+
+Filter products by type.
+
+Sort products.
+
+Calculate totals with dynamic pricing logic.
+
+Streams are used for filtering and sorting product lists.
+
+Extra Features
+
+Search/Filter: Stream filters allow customers to browse only the desired product categories.
+
+Sorting: Products are sorted by price using stream operations.
+
+This modular design makes it easy to extend—for example, adding new payment methods, inventory systems, or advanced search capabilities.
