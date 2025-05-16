@@ -1,0 +1,72 @@
+What is a Generic?
+Generics in programming (especially in Java) allow classes, interfaces, and methods to operate on objects of various types while providing compile-time type safety.
+
+Example:
+java
+Copy
+Edit
+List<String> names = new ArrayList<>();
+The List<String> means this list can only contain String objects.
+
+This prevents runtime type errors and eliminates the need for explicit casting.
+
+Why use generics?
+Type safety (errors caught at compile time)
+
+Code reusability (write once, use for any type)
+
+Avoids unnecessary casting
+
+Custom Example:
+java
+Copy
+Edit
+public class Box<T> {
+    private T item;
+    public void set(T item) { this.item = item; }
+    public T get() { return item; }
+}
+2. When Should Recursion Be Avoided?
+While recursion can lead to elegant solutions, it should be avoided in certain situations:
+
+ When to Avoid:
+Large input size: Recursion creates a new stack frame with each call. Deep recursion can cause stack overflow errors.
+
+Tail recursion not optimized: Some languages (like Java) don’t optimize tail calls, leading to performance issues.
+
+Easier iterative solution exists: Problems like tree traversal, factorial, or Fibonacci often have more efficient iterative versions.
+
+Hard to debug: Deep recursive calls make debugging and reasoning harder.
+
+Example of bad recursion:
+java
+Copy
+Edit
+int factorial(int n) {
+    if (n == 0) return 1;
+    return n * factorial(n - 1); // Deep call stack for large n
+}
+3. When Would We Prefer Throwable Over Try/Catch?
+In Java, you rarely prefer Throwable over try/catch, because try/catch is the proper way to handle exceptions.
+
+However, there are situations where inspecting or propagating Throwable is appropriate:
+ When to Use Throwable:
+Logging or auditing: To catch both Exception and Error for diagnostics/logging before rethrowing.
+
+Framework-level error handling: Some logging systems or monitoring tools may catch Throwable to record all unexpected failures.
+
+Custom global error handlers: For example, in thread pools or schedulers, you might catch Throwable to avoid crashes.
+
+⚠Important:
+You should not catch Throwable casually. It's the superclass of all errors and exceptions, including serious ones like OutOfMemoryError and StackOverflowError.
+
+Example:
+java
+Copy
+Edit
+try {
+    riskyOperation();
+} catch (Throwable t) {
+    logError(t);
+    throw t; // rethrow it
+}
